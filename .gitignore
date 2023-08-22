@@ -102,7 +102,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
@@ -128,10 +127,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-
-# vscode settings
-/.vscode/
-
 # workspace
 /workspace/
 
@@ -151,5 +146,9 @@ tmp/
 # scripts
 /*.sh
 
-# pretrained
-/pretrained
+# checkpoints
+/checkpoints
+
+# others
+.DS_Store
+work_dir/

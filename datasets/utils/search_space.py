@@ -1,5 +1,5 @@
 import numpy as np
-from pomegranate import MultivariateGaussianDistribution, GeneralMixtureModel
+# from pomegranate import MultivariateGaussianDistribution, GeneralMixtureModel
 import logging
 
 
