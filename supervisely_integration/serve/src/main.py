@@ -11,7 +11,7 @@ from tasks import create_task
 # for debug, has no effect in production
 if sly.is_development():
     load_dotenv("supervisely_integration/serve/debug.env")
-    load_dotenv(os.path.expanduser("~/supervisely.env"))
+    load_dotenv("supervisely.env")
 
 configs_path = "./configs/"
 checkpoints_path = "./checkpoints/"
@@ -30,6 +30,7 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
         cfg.work_dir = "./work_dir/"
         cfg.resume_from = checkpoint_path
         cfg.save_test_result = True
+        cfg.gpus = ["cuda:0"]
         os.makedirs(cfg.work_dir, exist_ok=True)
         with open(os.path.join(cfg.work_dir, "config.yaml"), "w") as f:
             yaml.dump(cfg.to_dict(), f)
