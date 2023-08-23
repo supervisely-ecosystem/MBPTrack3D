@@ -3,7 +3,7 @@ from torch import nn
 from functools import partial
 from typing import Optional, Tuple
 from torch.nn.parameter import Parameter
-from torch.nn.modules.linear import _LinearWithBias
+from torch.nn.modules.linear import NonDynamicallyQuantizableLinear
 from torch.nn.init import xavier_uniform_
 from torch.nn.init import constant_
 from torch.nn.init import xavier_normal_
@@ -58,8 +58,8 @@ class SharedMultiheadAttention(nn.Module):
         else:
             self.register_parameter('in_proj_bias', None)
 
-        self.out_proj = _LinearWithBias(embed_dim, embed_dim)
-        self.out_proj2 = _LinearWithBias(embed_dim, embed_dim)
+        self.out_proj = NonDynamicallyQuantizableLinear(embed_dim, embed_dim)
+        self.out_proj2 = NonDynamicallyQuantizableLinear(embed_dim, embed_dim)
 
         if add_bias_kv:
             self.bias_k = Parameter(torch.empty(1, 1, embed_dim))

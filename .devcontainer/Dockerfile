@@ -22,3 +22,6 @@ RUN pip install opencv-python
 
 RUN pip3 install addict
 RUN pip3 install pyquaternion
+RUN apt-get -y install curl
+
+RUN apt -y install wireguard iproute2

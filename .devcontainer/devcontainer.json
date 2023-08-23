@@ -9,5 +9,13 @@
 				"ms-python.python"
 			]
 		}
-	}
+	},
+	"runArgs": [
+		"--gpus",
+		"all",
+		"--ipc=host",
+		"--net=host",
+		"--cap-add",
+		"NET_ADMIN"
+	]
 }
