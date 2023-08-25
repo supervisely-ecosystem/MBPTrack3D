@@ -30,7 +30,7 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
         cfg.work_dir = "./work_dir/"
         cfg.resume_from = checkpoint_path
         cfg.save_test_result = True
-        cfg.gpus = ["cuda:0"]
+        cfg.gpus = [0]
         os.makedirs(cfg.work_dir, exist_ok=True)
         with open(os.path.join(cfg.work_dir, "config.yaml"), "w") as f:
             yaml.dump(cfg.to_dict(), f)

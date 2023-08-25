@@ -25,3 +25,6 @@ RUN pip3 install pyquaternion
 RUN apt-get -y install curl
 
 RUN apt -y install wireguard iproute2
+RUN apt-get -y install wget
+RUN pip3 install nuscenes-devkit
+RUN apt-get -y install unzip

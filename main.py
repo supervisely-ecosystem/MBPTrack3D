@@ -12,7 +12,7 @@ from pytorch_lightning.loggers.tensorboard import TensorBoardLogger
 from pytorch_lightning.utilities import rank_zero_only
 import torch
 from tqdm import tqdm
-import pynvml
+# import pynvml
 
 from utils import Logger, pl_ddp_rank
 from tasks import create_task

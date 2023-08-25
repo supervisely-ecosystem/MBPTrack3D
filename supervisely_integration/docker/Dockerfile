@@ -22,3 +22,4 @@ RUN pip install opencv-python
 
 RUN pip3 install addict
 RUN pip3 install pyquaternion
+RUN pip3 install nuscenes-devkit
