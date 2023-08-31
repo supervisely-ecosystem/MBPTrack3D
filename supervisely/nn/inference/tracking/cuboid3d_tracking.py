@@ -3,7 +3,7 @@ import functools
 from fastapi import Request, BackgroundTasks
 from typing import Any, Dict, List, Optional, Union
 import supervisely as sly
-from supervisely.nn.inference.tracking.tracker_interface import TrackerInterface
+from supervisely.nn.inference.tracking.tracker3d_interface import Tracker3DInterface
 from supervisely.nn.inference import Inference
 import supervisely.nn.inference.tracking.functional as F
 
@@ -20,11 +20,7 @@ class Cuboid3DTracking(Inference):
             sliding_window_mode=None,
             use_gui=False,
         )
-
-        try:
-            self.load_on_device(model_dir, "cuda")
-        except RuntimeError:
-            self.load_on_device(model_dir, "cpu")
+        self.load_on_device(model_dir, "cuda")
 
     def get_info(self):
         info = super().get_info()
@@ -72,3 +68,8 @@ class Cuboid3DTracking(Inference):
         def track(request: Request = None):
             state = request.state.state
             api: sly.Api = request.state.api
+            self.video_interface = Tracker3DInterface(
+                state=state,
+                api=api,
+            )
+            api.logger.info("Starting tracking process")

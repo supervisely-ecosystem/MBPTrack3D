@@ -72,7 +72,8 @@ def add_args_to_cfg(args, cfg):
 
     if cfg.phase == 'test':
         assert len(cfg.gpus) == 1
-        cfg.save_test_result = True if not cfg.debug else False
+        # cfg.save_test_result = True if not cfg.debug else False
+        cfg.save_test_result = True
 
 
 class CustomProgressBar(TQDMProgressBar):
