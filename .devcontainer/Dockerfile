@@ -28,3 +28,4 @@ RUN apt -y install wireguard iproute2
 RUN apt-get -y install wget
 RUN pip3 install nuscenes-devkit
 RUN apt-get -y install unzip
+RUN pip3 install starlette==0.27.0
