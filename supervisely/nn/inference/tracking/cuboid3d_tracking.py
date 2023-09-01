@@ -32,8 +32,8 @@ class Cuboid3DTracking(Inference):
         server = self._app.get_server()
 
         @server.post("/interpolate_figures_ids")
-        def start_track(request: Request, task: BackgroundTasks):
-            task.add_task(track, request)
+        def start_track(request: Request):
+            track(request)
             return {"message": "Track task started."}
 
         def send_error_data(func):
@@ -44,9 +44,9 @@ class Cuboid3DTracking(Inference):
                     value = func(*args, **kwargs)
                 except Exception as exc:
                     request: Request = args[0]
-                    context = request.state.context
+                    state = request.state.state
                     api: sly.Api = request.state.api
-                    track_id = context["trackId"]
+                    track_id = state["track_id"]
                     api.logger.error("An error occured:")
                     api.logger.exception(exc)
 

@@ -33,8 +33,8 @@ class Tracker3DInterface:
         self.geometries = []
         self.frames_indexes = []
 
-        self.add_geometries()
         self.add_frames_indexes()
+        self.add_geometries()
 
         self.logger.info("Tracker 3D interface initialized")
 
@@ -73,14 +73,14 @@ class Tracker3DInterface:
         self.logger.debug(f"Task: {task}")
         self.logger.debug(f"Notification status: {pos}/{self.stop}")
 
-        self.global_stop_indicatior = self.api.video.notify_progress(
-            self.track_id,
-            self.dataset_id,
-            fstart,
-            fend,
-            pos,
-            self.stop,
-        )
+        # self.global_stop_indicatior = self.api.video.notify_progress(
+        #     self.track_id,
+        #     self.dataset_id,
+        #     fstart,
+        #     fend,
+        #     pos,
+        #     self.stop,
+        # )
 
         self.logger.debug(f"Notification status: stop={self.global_stop_indicatior}")
 
