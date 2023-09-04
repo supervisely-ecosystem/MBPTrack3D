@@ -10,7 +10,6 @@ import numpy as np
 from datasets.utils.pcd_utils import *
 import torch
 
-
 # for debug, has no effect in production
 if sly.is_development():
     load_dotenv("supervisely_integration/serve/debug.env")
@@ -41,11 +40,11 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
         log = Logger(name="3DSOT", log_file=log_file_dir)
         self.model = create_model(self.cfg.model_cfg, log)
         self.device = torch.device(device)
+        self.model = self.model.to(self.device)
 
     def predict(
         self,
         frames,
-        input_bbox,
     ):
         pred_bboxes = []
         memory = None
@@ -54,7 +53,7 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
 
         for frame_idx, frame in enumerate(frames):
             if frame_idx == 0:
-                base_bbox = input_bbox
+                base_bbox = frame["bbox"]
                 lwh = np.array([base_bbox.wlh[1], base_bbox.wlh[0], base_bbox.wlh[2]])
             else:
                 base_bbox = pred_bboxes[-1]
@@ -68,11 +67,11 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
             if frame_idx == 0:
                 if pcd.nbr_points() == 0:
                     pcd.points = np.array([[0.0],[0.0],[0.0]])
-                bbox = transform_box(frame['bbox'], base_bbox)
+                bbox = transform_box(frame["bbox"], base_bbox)
                 mask_gt = get_pcd_in_box_mask(
                     pcd, bbox, scale=1.25).astype(int)
-                bbox_gt = np.array([bbox.center[0], bbox.center[1], bbox.center[2], (
-                    bbox.orientation.degrees if self.cfg.dataset_cfg.degree else bbox.orientation.radians) * bbox.orientation.axis[-1]])
+                # bbox_gt = np.array([bbox.center[0], bbox.center[1], bbox.center[2], (
+                #     bbox.orientation.degrees if self.cfg.dataset_cfg.degree else bbox.orientation.radians) * bbox.orientation.axis[-1]])
                 pcd, idx = resample_pcd(
                     pcd, self.cfg.dataset_cfg.frame_npts, return_idx=True, is_training=False)
                 mask_gt = mask_gt[idx]
@@ -147,8 +146,8 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
                         xyz=xyzs[:, 0, :, :],
                         mask=mask_pred.sigmoid(),
                         memory=memory
-                    ), mode='update')
-                    memory = update_output['memory']
+                    ), mode="update")
+                    memory = update_output["memory"]
         return pred_bboxes
 
 

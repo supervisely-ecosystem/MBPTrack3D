@@ -24,3 +24,4 @@ RUN pip3 install addict
 RUN pip3 install pyquaternion
 RUN pip3 install nuscenes-devkit
 RUN pip3 install starlette==0.27.0
+RUN pip3 install open3d

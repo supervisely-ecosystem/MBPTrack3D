@@ -68,8 +68,12 @@ class Cuboid3DTracking(Inference):
         def track(request: Request = None):
             state = request.state.state
             api: sly.Api = request.state.api
-            self.video_interface = Tracker3DInterface(
+            self.pcd_interface = Tracker3DInterface(
                 state=state,
                 api=api,
             )
             api.logger.info("Starting tracking process")
+            # get frames
+            frames = self.pcd_interface.frames
+            # run tracker
+            predicted_cuboids = self.predict(frames)
