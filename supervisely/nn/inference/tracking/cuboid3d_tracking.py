@@ -50,16 +50,16 @@ class Cuboid3DTracking(Inference):
                     api.logger.error("An error occured:")
                     api.logger.exception(exc)
 
-                    api.post(
-                        "videos.notify-annotation-tool",
-                        data={
-                            "type": "videos:tracking-error",
-                            "data": {
-                                "trackId": track_id,
-                                "error": {"message": repr(exc)},
-                            },
-                        },
-                    )
+                    # api.post(
+                    #     "videos.notify-annotation-tool",
+                    #     data={
+                    #         "type": "videos:tracking-error",
+                    #         "data": {
+                    #             "trackId": track_id,
+                    #             "error": {"message": repr(exc)},
+                    #         },
+                    #     },
+                    # )
                 return value
 
             return wrapper
