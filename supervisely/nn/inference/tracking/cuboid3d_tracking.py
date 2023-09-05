@@ -78,9 +78,9 @@ class Cuboid3DTracking(Inference):
             # run tracker
             predicted_cuboids = self.predict(frames)
             # postprocess tracker predictions
-            for i, cuboid in enumerate(predicted_cuboids[1:]):
+            for i, cuboid in enumerate(predicted_cuboids):
                 postprocessed_cuboid = self.pcd_interface.postprocess_cuboid(cuboid)
-                pcd_id = self.pcd_interface.pc_ids[i + 1]
+                pcd_id = self.pcd_interface.pc_ids[i]
                 obj_id = self.pcd_interface.object_ids[0]
                 track_id = self.pcd_interface.track_id
                 self.pcd_interface.add_cuboid_on_frame(

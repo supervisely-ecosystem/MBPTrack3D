@@ -9,6 +9,7 @@ from models import create_model
 import numpy as np
 from datasets.utils.pcd_utils import *
 import torch
+from pytorch_lightning import seed_everything
 
 # for debug, has no effect in production
 if sly.is_development():
@@ -25,6 +26,7 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
         model_dir: str,
         device: Literal["cuda", "cuda:0", "cuda:1", "cuda:2", "cuda:3"] = "cuda",
     ):
+        seed_everything(42)
         model_path = configs_path + "mbptrack_kitti_car_cfg.yaml"
         checkpoint_path = checkpoints_path + "mbptrack_kitti_car.ckpt"
         with open(model_path, "r") as f:
