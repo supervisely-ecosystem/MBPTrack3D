@@ -42,11 +42,13 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
         self.model = create_model(self.cfg.model_cfg, log)
         self.device = torch.device(device)
         self.model = self.model.to(self.device)
+        self.model.eval()
 
     def predict(
         self,
         frames,
     ):
+        torch.set_grad_enabled(False)
         pred_bboxes = []
         memory = None
         lwh = None
