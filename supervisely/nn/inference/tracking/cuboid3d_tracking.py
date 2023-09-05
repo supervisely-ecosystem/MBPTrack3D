@@ -77,3 +77,13 @@ class Cuboid3DTracking(Inference):
             frames = self.pcd_interface.frames
             # run tracker
             predicted_cuboids = self.predict(frames)
+            # postprocess tracker predictions
+            for i, cuboid in enumerate(predicted_cuboids[1:]):
+                postprocessed_cuboid = self.pcd_interface.postprocess_cuboid(cuboid)
+                pcd_id = self.pcd_interface.pc_ids[i + 1]
+                obj_id = self.pcd_interface.object_ids[0]
+                track_id = self.pcd_interface.track_id
+                self.pcd_interface.add_cuboid_on_frame(
+                    pcd_id, obj_id, postprocessed_cuboid.to_json(), track_id
+                )
+            api.logger.info("Successfully finished tracking process")

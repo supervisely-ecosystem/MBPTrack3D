@@ -26,12 +26,20 @@ class Tracker3DInterface:
         self.track_id = state["track_id"]
         self.dataset_id = state["dataset_id"]
         self.pc_ids = state["point_cloud_ids"]
-        ann = self.api.pointcloud.annotation.download_bulk(self.dataset_id, [state["point_cloud_ids"][0]])[0]
-        self.figure_ids = [fig["id"] for fig in ann["frames"][0]["figures"] if fig["id"] in state["figures_ids"]]
-        self.object_ids = [fig["objectId"] for fig in ann["frames"][0]["figures"] if fig["id"] in state["figures_ids"]]
+        ann = self.api.pointcloud.annotation.download_bulk(
+            self.dataset_id, [state["point_cloud_ids"][0]]
+        )[0]
+        self.figure_ids = [
+            fig["id"] for fig in ann["frames"][0]["figures"] if fig["id"] in state["figures_ids"]
+        ]
+        self.object_ids = [
+            fig["objectId"]
+            for fig in ann["frames"][0]["figures"]
+            if fig["id"] in state["figures_ids"]
+        ]
         self.direction = state["settings"]["direction"]
 
-        self.stop = (len(self.figure_ids) * self.frames_count) + self.frames_count + 1
+        self.stop = (len(self.figure_ids) * self.frames_count) + (2 * self.frames_count) + 1
         self.global_pos = 0
         self.global_stop_indicatior = False
         self.pc_dir = "./pointclouds/"
@@ -57,10 +65,10 @@ class Tracker3DInterface:
 
         while 0 <= cur_index < total_frames and len(self.frames_indexes) < self.frames_count:
             self.frames_indexes.append(cur_index)
-            cur_index += (1 if self.direction == "forward" else -1)
+            cur_index += 1 if self.direction == "forward" else -1
 
-    def prepare3Dbox(self, geometry):
-        assert geometry.geometry_name() == 'cuboid_3d'
+    def preprocess_cuboid(self, geometry):
+        assert geometry.geometry_name() == "cuboid_3d"
         # get vectors
         position = geometry.position
         rotation = geometry.rotation
@@ -68,10 +76,23 @@ class Tracker3DInterface:
 
         rot = Rotation.from_rotvec([rotation.x, rotation.y, rotation.z])
         rot_mat = rot.as_matrix()
-        center = [position.x + dimensions.x / 2, position.y + dimensions.y / 2, position.z + dimensions.z / 2]
+        center = [
+            position.x + dimensions.x / 2,
+            position.y + dimensions.y / 2,
+            position.z + dimensions.z / 2,
+        ]
         size = [dimensions.x, dimensions.y, dimensions.z]
         orientation = Quaternion(matrix=rot_mat)
         return BoundingBox(center, size, orientation)
+
+    def postprocess_cuboid(self, box):
+        position = box.center - box.wlh / 2
+        position = Vector3d(position[0], position[1], position[2])
+        dimensions = Vector3d(box.wlh[0], box.wlh[1], box.wlh[2])
+        rot = Rotation.from_quat(box.orientation.elements)
+        rot_vec = rot.as_rotvec()
+        rotation = Vector3d(rot_vec[0], rot_vec[1], rot_vec[2])
+        return Cuboid3d(position, rotation, dimensions)
 
     def load_frames(self):
         self.frames = []
@@ -79,17 +100,18 @@ class Tracker3DInterface:
         for i, pc_id in enumerate(self.pc_ids):
             frame = {}
             cloud_info = self.api.pointcloud.get_info_by_id(pc_id)
-            self.api.pointcloud_episode.download_path(cloud_info.id, os.path.join(self.pc_dir, cloud_info.name))
+            self.api.pointcloud_episode.download_path(
+                cloud_info.id, os.path.join(self.pc_dir, cloud_info.name)
+            )
             pcd = open3d.io.read_point_cloud(os.path.join(self.pc_dir, cloud_info.name))
             pcd = PointCloud(np.asarray(pcd.points).T)
             frame["pcd"] = pcd
             if i == 0:
                 geometry = self.geometries[0]
-                bbox = self.prepare3Dbox(geometry)
+                bbox = self.preprocess_cuboid(geometry)
                 frame["bbox"] = bbox
             self.frames.append(frame)
             self._notify(task="load frame")
-            
 
     def _notify(
         self,
@@ -123,4 +145,8 @@ class Tracker3DInterface:
         self.logger.debug(f"Notification status: stop={self.global_stop_indicatior}")
 
         if self.global_stop_indicatior and self.global_pos < self.stop:
-            self.logger.info("Task stoped by user.")
+            self.logger.info("Task stoped by user")
+
+    def add_cuboid_on_frame(self, pcd_id, object_id, cuboid_json, track_id):
+        self.api.pointcloud_episode.figure.create(pcd_id, object_id, cuboid_json, "cuboid_3d", track_id)
+        self._notify(task="add geometry on frame")
