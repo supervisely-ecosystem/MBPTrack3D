@@ -89,7 +89,7 @@ class Tracker3DInterface:
         position = box.center - box.wlh / 2
         position = Vector3d(position[0], position[1], position[2])
         dimensions = Vector3d(box.wlh[0], box.wlh[1], box.wlh[2])
-        rot = Rotation.from_quat(box.orientation.elements)
+        rot = Rotation.from_matrix(box.rotation_matrix)
         rot_vec = rot.as_rotvec()
         rotation = Vector3d(rot_vec[0], rot_vec[1], rot_vec[2])
         return Cuboid3d(position, rotation, dimensions)
@@ -148,5 +148,7 @@ class Tracker3DInterface:
             self.logger.info("Task stoped by user")
 
     def add_cuboid_on_frame(self, pcd_id, object_id, cuboid_json, track_id):
-        self.api.pointcloud_episode.figure.create(pcd_id, object_id, cuboid_json, "cuboid_3d", track_id)
+        self.api.pointcloud_episode.figure.create(
+            pcd_id, object_id, cuboid_json, "cuboid_3d", track_id
+        )
         self._notify(task="add geometry on frame")
