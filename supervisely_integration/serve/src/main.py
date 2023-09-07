@@ -21,6 +21,12 @@ checkpoints_path = "./checkpoints/"
 
 
 class MBPTracker(sly.nn.inference.Cuboid3DTracking):
+    def preprocess_state_dict(self, state_dict):
+        preprocessed_state_dict = {}
+        for key, value in state_dict.items():
+            preprocessed_state_dict[key[6:]] = value
+        return preprocessed_state_dict
+
     def load_on_device(
         self,
         model_dir: str,
@@ -33,9 +39,6 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
             cfg = yaml.load(f, Loader=yaml.FullLoader)
         self.cfg = Dict(cfg)
         self.cfg.work_dir = "./work_dir/"
-        self.cfg.resume_from = checkpoint_path
-        self.cfg.save_test_result = True
-        self.cfg.gpus = [0]
         os.makedirs(self.cfg.work_dir, exist_ok=True)
         with open(os.path.join(self.cfg.work_dir, "config.yaml"), "w") as f:
             yaml.dump(self.cfg.to_dict(), f)
@@ -43,6 +46,10 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
         log = Logger(name="3DSOT", log_file=log_file_dir)
         self.model = create_model(self.cfg.model_cfg, log)
         self.device = torch.device(device)
+        checkpoint = torch.load(checkpoint_path, map_location=self.device)
+        raw_state_dict = checkpoint["state_dict"]
+        preprocessed_state_dict = self.preprocess_state_dict(raw_state_dict)
+        self.model.load_state_dict(preprocessed_state_dict)
         self.model = self.model.to(self.device)
         self.model.eval()
 
