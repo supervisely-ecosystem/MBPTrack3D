@@ -17,6 +17,7 @@
 		"--ipc=host",
 		"--net=host",
 		"--cap-add",
-		"NET_ADMIN"
+		"NET_ADMIN",
+		"--runtime=nvidia"
 	]
 }

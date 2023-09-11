@@ -81,8 +81,6 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
                     pcd.points = np.array([[0.0], [0.0], [0.0]])
                 bbox = transform_box(frame["bbox"], base_bbox)
                 mask_gt = get_pcd_in_box_mask(pcd, bbox, scale=1.25).astype(int)
-                # bbox_gt = np.array([bbox.center[0], bbox.center[1], bbox.center[2], (
-                #     bbox.orientation.degrees if self.cfg.dataset_cfg.degree else bbox.orientation.radians) * bbox.orientation.axis[-1]])
                 pcd, idx = resample_pcd(
                     pcd, self.cfg.dataset_cfg.frame_npts, return_idx=True, is_training=False
                 )

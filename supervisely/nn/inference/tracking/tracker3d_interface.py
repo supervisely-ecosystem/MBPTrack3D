@@ -76,17 +76,13 @@ class Tracker3DInterface:
 
         rot = Rotation.from_rotvec([rotation.x, rotation.y, rotation.z])
         rot_mat = rot.as_matrix()
-        center = [
-            position.x + dimensions.x / 2,
-            position.y + dimensions.y / 2,
-            position.z + dimensions.z / 2,
-        ]
+        center = [position.x, position.y, position.z]
         size = [dimensions.x, dimensions.y, dimensions.z]
         orientation = Quaternion(matrix=rot_mat)
         return BoundingBox(center, size, orientation)
 
     def postprocess_cuboid(self, box):
-        position = box.center - box.wlh / 2
+        position = box.center
         position = Vector3d(position[0], position[1], position[2])
         dimensions = Vector3d(box.wlh[0], box.wlh[1], box.wlh[2])
         rot = Rotation.from_matrix(box.rotation_matrix)
