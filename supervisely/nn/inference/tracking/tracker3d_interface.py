@@ -106,8 +106,22 @@ class Tracker3DInterface:
                 geometry = self.geometries[0]
                 bbox = self.preprocess_cuboid(geometry)
                 frame["bbox"] = bbox
+                # for debug
+                # self.visualize_input(frame)
             self.frames.append(frame)
             self._notify(task="load frame")
+
+    def visualize_input(self, input_frame):
+        input_box = input_frame["bbox"]
+        input_pcd = input_frame["pcd"]
+        vis_pcd = open3d.geometry.PointCloud()
+        point_xyz = input_pcd.points.T
+        vis_pcd.points = open3d.utility.Vector3dVector(point_xyz)
+        vis_bbox = open3d.geometry.OrientedBoundingBox(
+            input_box.center, input_box.rotation_matrix, input_box.wlh
+        )
+        vis_bbox.color = (0.6, 0.6, 0)
+        open3d.visualization.draw_plotly_server([vis_pcd], width=1920, height=1080)
 
     def _notify(
         self,
