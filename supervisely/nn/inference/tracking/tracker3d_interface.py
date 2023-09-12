@@ -100,7 +100,11 @@ class Tracker3DInterface:
                 cloud_info.id, os.path.join(self.pc_dir, cloud_info.name)
             )
             pcd = open3d.io.read_point_cloud(os.path.join(self.pc_dir, cloud_info.name))
-            pcd = PointCloud(np.asarray(pcd.points).T)
+            pcd_rot_mat = pcd.get_rotation_matrix_from_xyz((0, 0, np.pi))
+            center = pcd.get_center()
+            pcd = pcd.rotate(pcd_rot_mat, center)
+            points = np.asarray(pcd.points, dtype=np.float32)
+            pcd = PointCloud(points.T)
             frame["pcd"] = pcd
             if i == 0:
                 geometry = self.geometries[0]
@@ -117,10 +121,9 @@ class Tracker3DInterface:
         vis_pcd = open3d.geometry.PointCloud()
         point_xyz = input_pcd.points.T
         vis_pcd.points = open3d.utility.Vector3dVector(point_xyz)
-        vis_bbox = open3d.geometry.OrientedBoundingBox(
-            input_box.center, input_box.rotation_matrix, input_box.wlh
-        )
-        vis_bbox.color = (0.6, 0.6, 0)
+        # vis_bbox = open3d.geometry.OrientedBoundingBox(
+        #     input_box.center, input_box.rotation_matrix, input_box.wlh
+        # )
         open3d.visualization.draw_plotly_server([vis_pcd], width=1920, height=1080)
 
     def _notify(
