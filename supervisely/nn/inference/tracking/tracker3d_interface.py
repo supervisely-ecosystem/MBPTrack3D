@@ -74,7 +74,7 @@ class Tracker3DInterface:
         rotation = geometry.rotation
         dimensions = geometry.dimensions
 
-        rot = Rotation.from_rotvec([rotation.x, rotation.y, rotation.z])
+        rot = Rotation.from_rotvec([rotation.x, rotation.y, rotation.z + (np.pi / 2)])
         rot_mat = rot.as_matrix()
         center = [position.x, position.y, position.z]
         size = [dimensions.x, dimensions.y, dimensions.z]
@@ -83,12 +83,11 @@ class Tracker3DInterface:
 
     def postprocess_cuboid(self, box):
         position = box.center
-        print(position)
         position = Vector3d(position[0], position[1], position[2])
         dimensions = Vector3d(box.wlh[0], box.wlh[1], box.wlh[2])
         rot = Rotation.from_matrix(box.rotation_matrix)
         rot_vec = rot.as_rotvec()
-        rotation = Vector3d(rot_vec[0], rot_vec[1], rot_vec[2])
+        rotation = Vector3d(rot_vec[0], rot_vec[1], rot_vec[2] - (np.pi / 2))
         return Cuboid3d(position, rotation, dimensions)
 
     def load_frames(self):
@@ -103,9 +102,6 @@ class Tracker3DInterface:
             pcd = open3d.io.read_point_cloud(
                 os.path.join(self.pc_dir, cloud_info.name), format="pcd"
             )
-            # pcd_rot_mat = pcd.get_rotation_matrix_from_xyz((0, 0, np.pi))
-            # center = pcd.get_center()
-            # pcd = pcd.rotate(pcd_rot_mat, center)
             points = np.asarray(pcd.points, dtype=np.float32)
             pcd = PointCloud(points.T)
             frame["pcd"] = pcd
@@ -124,9 +120,6 @@ class Tracker3DInterface:
         vis_pcd = open3d.geometry.PointCloud()
         point_xyz = input_pcd.points.T
         vis_pcd.points = open3d.utility.Vector3dVector(point_xyz)
-        # vis_bbox = open3d.geometry.OrientedBoundingBox(
-        #     input_box.center, input_box.rotation_matrix, input_box.wlh
-        # )
         open3d.visualization.draw_plotly_server([vis_pcd], width=1920, height=1080)
 
     def _notify(
