@@ -83,6 +83,7 @@ class Tracker3DInterface:
 
     def postprocess_cuboid(self, box):
         position = box.center
+        print(position)
         position = Vector3d(position[0], position[1], position[2])
         dimensions = Vector3d(box.wlh[0], box.wlh[1], box.wlh[2])
         rot = Rotation.from_matrix(box.rotation_matrix)
@@ -99,10 +100,12 @@ class Tracker3DInterface:
             self.api.pointcloud_episode.download_path(
                 cloud_info.id, os.path.join(self.pc_dir, cloud_info.name)
             )
-            pcd = open3d.io.read_point_cloud(os.path.join(self.pc_dir, cloud_info.name))
-            pcd_rot_mat = pcd.get_rotation_matrix_from_xyz((0, 0, np.pi))
-            center = pcd.get_center()
-            pcd = pcd.rotate(pcd_rot_mat, center)
+            pcd = open3d.io.read_point_cloud(
+                os.path.join(self.pc_dir, cloud_info.name), format="pcd"
+            )
+            # pcd_rot_mat = pcd.get_rotation_matrix_from_xyz((0, 0, np.pi))
+            # center = pcd.get_center()
+            # pcd = pcd.rotate(pcd_rot_mat, center)
             points = np.asarray(pcd.points, dtype=np.float32)
             pcd = PointCloud(points.T)
             frame["pcd"] = pcd
