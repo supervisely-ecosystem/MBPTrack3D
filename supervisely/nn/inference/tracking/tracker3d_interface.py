@@ -74,7 +74,7 @@ class Tracker3DInterface:
         rotation = geometry.rotation
         dimensions = geometry.dimensions
 
-        rot = Rotation.from_rotvec([rotation.x, rotation.y, rotation.z + (np.pi / 2)])
+        rot = Rotation.from_rotvec([0, 0, rotation.z + (np.pi / 2)])
         rot_mat = rot.as_matrix()
         center = [position.x, position.y, position.z]
         size = [dimensions.x, dimensions.y, dimensions.z]
@@ -87,7 +87,7 @@ class Tracker3DInterface:
         dimensions = Vector3d(box.wlh[0], box.wlh[1], box.wlh[2])
         rot = Rotation.from_matrix(box.rotation_matrix)
         rot_vec = rot.as_rotvec()
-        rotation = Vector3d(rot_vec[0], rot_vec[1], rot_vec[2] - (np.pi / 2))
+        rotation = Vector3d(0, 0, rot_vec[2] - (np.pi / 2))
         return Cuboid3d(position, rotation, dimensions)
 
     def load_frames(self):
