@@ -5,7 +5,7 @@ from typing import Any, Dict, List, Optional, Union
 import supervisely as sly
 from supervisely.nn.inference.tracking.tracker3d_interface import Tracker3DInterface
 from supervisely.nn.inference import Inference
-import supervisely.nn.inference.tracking.functional as F
+import os
 
 
 class Cuboid3DTracking(Inference):
@@ -66,6 +66,7 @@ class Cuboid3DTracking(Inference):
 
         @send_error_data
         def track(request: Request = None):
+            # initialize tracker 3d interface
             state = request.state.state
             api: sly.Api = request.state.api
             self.pcd_interface = Tracker3DInterface(
@@ -73,17 +74,31 @@ class Cuboid3DTracking(Inference):
                 api=api,
             )
             api.logger.info("Starting tracking process")
-            # get frames
-            frames = self.pcd_interface.frames
-            # run tracker
-            predicted_cuboids = self.predict(frames)
-            # postprocess tracker predictions
-            for i, cuboid in enumerate(predicted_cuboids):
-                postprocessed_cuboid = self.pcd_interface.postprocess_cuboid(cuboid)
-                pcd_id = self.pcd_interface.pc_ids[i]
-                obj_id = self.pcd_interface.object_ids[0]
-                track_id = self.pcd_interface.track_id
-                self.pcd_interface.add_cuboid_on_frame(
-                    pcd_id, obj_id, postprocessed_cuboid.to_json(), track_id
-                )
-            api.logger.info("Successfully finished tracking process")
+            # propagate frame-by-frame
+            for i, pc_id in enumerate(self.pcd_interface.pc_ids):
+                # download input data
+                frame = {}
+                cloud_info = api.pointcloud.get_info_by_id(pc_id)
+                pcd_path = os.path.join(self.pcd_interface.pc_dir, cloud_info.name)
+                api.pointcloud_episode.download_path(cloud_info.id, pcd_path)
+                frame["pcd"] = pcd_path
+                if i == 0:
+                    geometry = self.pcd_interface.geometries[0]
+                    frame["bbox"] = geometry
+                self.pcd_interface._notify(task="load frame")
+                # pass input data to model and get prediction
+                if i == len(self.pcd_interface.pc_ids) - 1:
+                    predicted_cuboid = self.predict(frame, is_last_frame=True)
+                else:
+                    predicted_cuboid = self.predict(frame)
+                # add predicted cuboid to frame
+                if i != 0:
+                    pcd_id = self.pcd_interface.pc_ids[i]
+                    obj_id = self.pcd_interface.object_ids[0]
+                    track_id = self.pcd_interface.track_id
+                    self.pcd_interface.add_cuboid_on_frame(
+                        pcd_id, obj_id, predicted_cuboid.to_json(), track_id
+                    )
+                # clean directory with downloaded pointclouds
+                sly.fs.clean_dir(self.pcd_interface.pc_dir)
+                api.logger.info("Successfully finished tracking process")

@@ -1,15 +1,9 @@
 import numpy as np
-from typing import Generator, Optional, List, Tuple, OrderedDict, Dict
+from typing import Optional, List, OrderedDict, Dict
 from collections import OrderedDict
 
 import supervisely as sly
-from supervisely.geometry.cuboid_3d import Cuboid3d, Vector3d
 from logging import Logger
-import os
-import open3d
-from datasets.utils import BoundingBox, PointCloud
-from scipy.spatial.transform import Rotation
-from pyquaternion import Quaternion
 
 
 class Tracker3DInterface:
@@ -49,7 +43,6 @@ class Tracker3DInterface:
 
         self.add_frames_indexes()
         self.add_geometries()
-        self.load_frames()
 
         self.logger.info("Tracker 3D interface initialized")
 
@@ -66,51 +59,6 @@ class Tracker3DInterface:
         while 0 <= cur_index < total_frames and len(self.frames_indexes) < self.frames_count:
             self.frames_indexes.append(cur_index)
             cur_index += 1 if self.direction == "forward" else -1
-
-    def preprocess_cuboid(self, geometry):
-        assert geometry.geometry_name() == "cuboid_3d"
-        # get vectors
-        position = geometry.position
-        rotation = geometry.rotation
-        dimensions = geometry.dimensions
-
-        rot = Rotation.from_rotvec([0, 0, rotation.z + (np.pi / 2)])
-        rot_mat = rot.as_matrix()
-        center = [position.x, position.y, position.z]
-        size = [dimensions.x, dimensions.y, dimensions.z]
-        orientation = Quaternion(matrix=rot_mat)
-        return BoundingBox(center, size, orientation)
-
-    def postprocess_cuboid(self, box):
-        position = box.center
-        position = Vector3d(position[0], position[1], position[2])
-        dimensions = Vector3d(box.wlh[0], box.wlh[1], box.wlh[2])
-        rot = Rotation.from_matrix(box.rotation_matrix)
-        rot_vec = rot.as_rotvec()
-        rotation = Vector3d(0, 0, rot_vec[2] - (np.pi / 2))
-        return Cuboid3d(position, rotation, dimensions)
-
-    def load_frames(self):
-        self.frames = []
-        self.logger.info(f"Loading {len(self.frames_indexes)} frames...")
-        for i, pc_id in enumerate(self.pc_ids):
-            frame = {}
-            cloud_info = self.api.pointcloud.get_info_by_id(pc_id)
-            self.api.pointcloud_episode.download_path(
-                cloud_info.id, os.path.join(self.pc_dir, cloud_info.name)
-            )
-            pcd = open3d.io.read_point_cloud(
-                os.path.join(self.pc_dir, cloud_info.name), format="pcd"
-            )
-            points = np.asarray(pcd.points, dtype=np.float32)
-            pcd = PointCloud(points.T)
-            frame["pcd"] = pcd
-            if i == 0:
-                geometry = self.geometries[0]
-                bbox = self.preprocess_cuboid(geometry)
-                frame["bbox"] = bbox
-            self.frames.append(frame)
-            self._notify(task="load frame")
 
     def _notify(
         self,
