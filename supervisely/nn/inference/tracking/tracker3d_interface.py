@@ -89,8 +89,6 @@ class Tracker3DInterface:
         #     self.stop,
         # )
 
-        self.logger.debug(f"Notification status: stop={self.global_stop_indicatior}")
-
         if self.global_stop_indicatior and self.global_pos < self.stop:
             self.logger.info("Task stoped by user")
 
