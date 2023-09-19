@@ -22,13 +22,13 @@ if sly.is_development():
     load_dotenv("supervisely.env")
 
 configs_path = "./configs/"
-checkpoints_path = "./checkpoints/"
+checkpoints_path = "/checkpoints/"
+checkpoint_name = os.environ.get("modal.state.modelName", "mbptrack_kitti_car.ckpt")
 
 
 class MBPTracker(sly.nn.inference.Cuboid3DTracking):
     def preprocess_cuboid(self, geometry: Cuboid3d):
         assert geometry.geometry_name() == "cuboid_3d"
-        # get vectors
         position = geometry.position
         rotation = geometry.rotation
         dimensions = geometry.dimensions
@@ -73,8 +73,9 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
         device: Literal["cuda", "cuda:0", "cuda:1", "cuda:2", "cuda:3"] = "cuda",
     ):
         seed_everything(42)
-        model_path = configs_path + "mbptrack_kitti_car_cfg.yaml"
-        checkpoint_path = checkpoints_path + "mbptrack_kitti_car.ckpt"
+        sly.logger.debug(f"Checkpoint name: {checkpoint_name}")
+        model_path = configs_path + checkpoint_name[:-5] + "_cfg.yaml"
+        checkpoint_path = checkpoints_path + checkpoint_name
         with open(model_path, "r") as f:
             cfg = yaml.load(f, Loader=yaml.FullLoader)
         self.cfg = Dict(cfg)

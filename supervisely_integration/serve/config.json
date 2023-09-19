@@ -1,0 +1,31 @@
+{
+    "name": "MBPTrack 3D Point Cloud Tracking",
+    "type": "app",
+    "version": "2.0.0",
+    "categories": [
+        "neural network",
+        "pointclouds",
+        "tracking",
+        "serve"
+    ],
+    "description": "Deploy MBPTrack as REST API service",
+    "docker_image": "supervisely/mbptrack3d:1.0.1",
+    "entrypoint": "python3 -m uvicorn main:model.app --app-dir ./supervisely_integration/serve/src --host 0.0.0.0 --port 8000 --ws websockets",
+    "port": 8000,
+    "modal_template": "supervisely_integration/serve/src/modal.html",
+    "modal_template_state": {
+        "modelName": "mbptrack_kitti_car.ckpt"
+    },
+    "task_location": "application_sessions",
+    "isolate": true,
+    "gpu": "required",
+    "headless": true,
+    "instance_version": "6.7.40",
+    "session_tags": [
+        "sly_point_cloud_tracking"
+    ],
+    "community_agent": false,
+    "license": {
+        "type": "MIT"
+    }
+}
