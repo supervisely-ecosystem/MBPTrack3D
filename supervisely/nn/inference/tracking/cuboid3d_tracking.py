@@ -32,8 +32,8 @@ class Cuboid3DTracking(Inference):
         server = self._app.get_server()
 
         @server.post("/interpolate_figures_ids")
-        def start_track(request: Request):
-            track(request)
+        def start_track(request: Request, task: BackgroundTasks):
+            task.add_task(track, request)
             return {"message": "Track task started."}
 
         def send_error_data(func):
@@ -44,22 +44,22 @@ class Cuboid3DTracking(Inference):
                     value = func(*args, **kwargs)
                 except Exception as exc:
                     request: Request = args[0]
-                    state = request.state.state
+                    context = request.state.context
                     api: sly.Api = request.state.api
-                    track_id = state["track_id"]
+                    track_id = context["trackId"]
                     api.logger.error("An error occured:")
                     api.logger.exception(exc)
 
-                    # api.post(
-                    #     "videos.notify-annotation-tool",
-                    #     data={
-                    #         "type": "videos:tracking-error",
-                    #         "data": {
-                    #             "trackId": track_id,
-                    #             "error": {"message": repr(exc)},
-                    #         },
-                    #     },
-                    # )
+                    api.post(
+                        "point-clouds.episodes.notify-annotation-tool",
+                        data={
+                            "type": "point-cloud-episodes:tracking-error",
+                            "data": {
+                                "trackId": track_id,
+                                "error": {"message": repr(exc)},
+                            },
+                        },
+                    )
                 return value
 
             return wrapper
@@ -67,10 +67,10 @@ class Cuboid3DTracking(Inference):
         @send_error_data
         def track(request: Request = None):
             # initialize tracker 3d interface
-            state = request.state.state
+            context = request.state.context
             api: sly.Api = request.state.api
             self.pcd_interface = Tracker3DInterface(
-                state=state,
+                context=context,
                 api=api,
             )
             api.logger.info("Starting tracking process")

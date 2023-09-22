@@ -9,29 +9,20 @@ from logging import Logger
 class Tracker3DInterface:
     def __init__(
         self,
-        state,
+        context,
         api,
     ):
         self.api: sly.Api = api
         self.logger: Logger = api.logger
-        self.frame_index = state["start_index"]
-        self.frames_count = state["settings"]["frames"]
+        self.frame_index = context["frameIndex"]
+        self.frames_count = context["frames"]
 
-        self.track_id = state["track_id"]
-        self.dataset_id = state["dataset_id"]
-        self.pc_ids = state["point_cloud_ids"]
-        ann = self.api.pointcloud.annotation.download_bulk(
-            self.dataset_id, [state["point_cloud_ids"][0]]
-        )[0]
-        self.figure_ids = [
-            fig["id"] for fig in ann["frames"][0]["figures"] if fig["id"] in state["figures_ids"]
-        ]
-        self.object_ids = [
-            fig["objectId"]
-            for fig in ann["frames"][0]["figures"]
-            if fig["id"] in state["figures_ids"]
-        ]
-        self.direction = state["settings"]["direction"]
+        self.track_id = context["trackId"]
+        self.dataset_id = context["datasetId"]
+        self.pc_ids = context["pointCloudIds"]
+        self.figure_ids = context["figureIds"]
+        self.object_ids = context["objectIds"]
+        self.direction = context["direction"]
 
         self.stop = (len(self.figure_ids) * self.frames_count) + (2 * self.frames_count) + 1
         self.global_pos = 0
@@ -74,20 +65,16 @@ class Tracker3DInterface:
         else:
             pos = self.global_pos
 
-        fstart = min(self.frames_indexes) if fstart is None else fstart
-        fend = max(self.frames_indexes) if fend is None else fend
-
         self.logger.debug(f"Task: {task}")
         self.logger.debug(f"Notification status: {pos}/{self.stop}")
 
-        # self.global_stop_indicatior = self.api.video.notify_progress(
-        #     self.track_id,
-        #     self.dataset_id,
-        #     fstart,
-        #     fend,
-        #     pos,
-        #     self.stop,
-        # )
+        self.global_stop_indicatior = self.api.pointcloud_episode.notify_progress(
+            self.track_id,
+            self.dataset_id,
+            self.pc_ids,
+            pos,
+            self.stop,
+        )
 
         if self.global_stop_indicatior and self.global_pos < self.stop:
             self.logger.info("Task stoped by user")
