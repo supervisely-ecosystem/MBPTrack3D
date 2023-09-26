@@ -31,7 +31,7 @@ class Cuboid3DTracking(Inference):
         super().serve()
         server = self._app.get_server()
 
-        @server.post("/interpolate_figures_ids")
+        @server.post("/track")
         def start_track(request: Request, task: BackgroundTasks):
             task.add_task(track, request)
             return {"message": "Track task started."}
