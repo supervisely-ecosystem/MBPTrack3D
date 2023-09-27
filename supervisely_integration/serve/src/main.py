@@ -175,6 +175,7 @@ class MBPTracker(sly.nn.inference.Cuboid3DTracking):
             )
             self.memory = update_output["memory"]
             self.previous_bbox = frame["bbox"]
+            self.pcd_interface._notify(task="cuboid tracking")
             return self.postprocess_cuboid(frame["bbox"])
         else:
             propagate_output = self.model(

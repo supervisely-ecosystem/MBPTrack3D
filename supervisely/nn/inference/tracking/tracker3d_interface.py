@@ -24,7 +24,9 @@ class Tracker3DInterface:
         self.object_ids = context["objectIds"]
         self.direction = context["direction"]
 
-        self.stop = (len(self.figure_ids) * self.frames_count) + (2 * self.frames_count) + 1
+        self.stop = (
+            len(self.pc_ids) + (len(self.figure_ids) * len(self.pc_ids)) + (len(self.figure_ids) * self.frames_count)
+        )
         self.global_pos = 0
         self.global_stop_indicatior = False
         self.pc_dir = "./pointclouds/"
@@ -54,8 +56,6 @@ class Tracker3DInterface:
     def _notify(
         self,
         stop: bool = False,
-        fstart: Optional[int] = None,
-        fend: Optional[int] = None,
         task: str = "not defined",
     ):
         self.global_pos += 1
