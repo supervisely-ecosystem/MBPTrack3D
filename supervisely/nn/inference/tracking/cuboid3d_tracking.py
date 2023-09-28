@@ -96,7 +96,8 @@ class Cuboid3DTracking(Inference):
                     # add predicted cuboid to frame
                     if i != 0:
                         pcd_id = self.pcd_interface.pc_ids[i]
-                        obj_id = self.pcd_interface.object_ids[geom_idx]
+                        fig_id = self.pcd_interface.figure_ids[geom_idx]
+                        obj_id = api.pointcloud.figure.get_info_by_id(fig_id).object_id
                         track_id = self.pcd_interface.track_id
                         self.pcd_interface.add_cuboid_on_frame(
                             pcd_id, obj_id, predicted_cuboid.to_json(), track_id
