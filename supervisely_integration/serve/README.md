@@ -27,6 +27,10 @@ Original work is available here: [**paper (ICCV2023)**](https://arxiv.org/abs/23
 
 ## Highlights
 
+### New approach to 3D single obejct tracking
+
+Unlike previous existing approaches, which were based on the Siamese paradigm, MBPTrack uses both temporal and spatial contextual information in the 3D single object tracking task with the help a memory mechanism.
+
 ### State-of-the-art performance on many public benchmarks
 
 ![kitti_table](https://user-images.githubusercontent.com/91027877/271340051-3a5bd35b-972a-4a05-8b0a-9f3ba4787d78.jpg)
