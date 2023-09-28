@@ -33,7 +33,7 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 
 ### State-of-the-art performance on many public benchmarks
 
-![kitti_table](https://user-images.githubusercontent.com/91027877/271340051-3a5bd35b-972a-4a05-8b0a-9f3ba4787d78.jpg)
+![kitti_table](https://user-images.githubusercontent.com/91027877/271342229-b029aabb-3a66-4351-be5a-aba06ae902f7.jpg)
 
 ![nuscenes_waymo_table](https://user-images.githubusercontent.com/91027877/271340265-b69e55df-c1ac-4e72-8528-b8213795b408.jpg)
 
@@ -42,4 +42,3 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 # How to use
 
 # Demo
-
