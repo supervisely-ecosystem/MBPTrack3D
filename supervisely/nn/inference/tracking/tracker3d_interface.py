@@ -19,13 +19,19 @@ class Tracker3DInterface:
 
         self.track_id = context["trackId"]
         self.dataset_id = context["datasetId"]
-        self.pc_ids = context["pointCloudIds"]
+        self.pc_ids = (
+            context["pointCloudIds"]
+            if context["direction"] == "forward"
+            else context["pointCloudIds"][::-1]
+        )
         self.figure_ids = context["figureIds"]
         self.object_ids = context["objectIds"]
         self.direction = context["direction"]
 
         self.stop = (
-            len(self.pc_ids) + (len(self.figure_ids) * len(self.pc_ids)) + (len(self.figure_ids) * self.frames_count)
+            len(self.pc_ids)
+            + (len(self.figure_ids) * len(self.pc_ids))
+            + (len(self.figure_ids) * self.frames_count)
         )
         self.global_pos = 0
         self.global_stop_indicatior = False
