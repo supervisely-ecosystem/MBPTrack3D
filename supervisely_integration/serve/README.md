@@ -24,3 +24,12 @@ state-of-the-art 3D single object tracking model (ICCV2023) integrated into Supe
 Original work is available here: [**paper (ICCV2023)**](https://arxiv.org/abs/2303.05071) and [**code**](https://github.com/slothfulxtx/MBPTrack3D).
 
 ![Architecture](https://user-images.githubusercontent.com/91027877/271337328-895d7dfd-7e14-4a35-9135-6f4a354a8a5a.jpg)
+
+## Highlights
+
+### State-of-the-art performance on many public benchmarks
+
+![kitti_table](https://user-images.githubusercontent.com/91027877/271340051-3a5bd35b-972a-4a05-8b0a-9f3ba4787d78.jpg)
+
+![nuscenes_waymo_table](https://user-images.githubusercontent.com/91027877/271340265-b69e55df-c1ac-4e72-8528-b8213795b408.jpg)
+
