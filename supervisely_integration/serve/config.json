@@ -20,7 +20,7 @@
     "isolate": true,
     "gpu": "required",
     "headless": true,
-    "instance_version": "6.7.40",
+    "instance_version": "6.8.35",
     "session_tags": [
         "sly_point_cloud_tracking"
     ],
