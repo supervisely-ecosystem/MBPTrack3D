@@ -1,6 +1,6 @@
 <div align="center" markdown>
 
-<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/e70eb051-8a01-4394-9703-ddaf60d05627"/>  
+<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/7cf2e9df-798b-4a4f-a092-18c04101bfea"/>  
 
 # MBPTrack 3D Point Cloud Tracking (ICCV2023)
 
@@ -45,7 +45,7 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 
 1. Go to Ecosystem page and find the app [MBPTrack 3D Point Cloud Tracking (ICCV2023)](https://ecosystem.supervisely.com/apps/mbptrack3d/supervisely_integration/serve).  
 
-<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/mbptrack3d/supervisely_integration/serve" src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/115161827/2c6b1011-e63d-4ea4-93e9-6e18428bdb52" width="500px" style='padding-bottom: 20px'/> 
+<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/mbptrack3d/supervisely_integration/serve" src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/115161827/049135e8-2eac-43a3-a511-8da674fe551f" width="500px" style='padding-bottom: 20px'/> 
 
 2. Or you can run the app from **Neural Networks** page -> **Point Clouds** -> **Detection & Tracking**.
 
@@ -55,7 +55,7 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 
 <img src="XXX"/>
 
-5. Use in `3D Point Cloud labeling tool`.
+4. Use in `3D Point Cloud labeling tool`.
 
 <img src="XXX"/>
 
