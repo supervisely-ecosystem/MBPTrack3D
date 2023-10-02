@@ -5,7 +5,7 @@
     "categories": [
         "neural network",
         "pointclouds",
-        "tracking",
+        "detection & tracking",
         "serve"
     ],
     "description": "Deploy MBPTrack as REST API service",
