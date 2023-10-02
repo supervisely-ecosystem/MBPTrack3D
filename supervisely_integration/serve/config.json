@@ -9,9 +9,9 @@
         "serve"
     ],
     "description": "Deploy MBPTrack as REST API service",
-    "icon": "https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/50ed27ed-6044-42be-9eca-8e080ca9243a",
+    "icon": "https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/f5da9fe7-a07b-466a-a51a-0fa8a1525b34",
     "icon_cover": true,
-    "poster": "https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/e70eb051-8a01-4394-9703-ddaf60d05627",
+    "poster": "https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/7cf2e9df-798b-4a4f-a092-18c04101bfea",
     "docker_image": "supervisely/mbptrack3d:1.0.1",
     "entrypoint": "python3 -m uvicorn main:model.app --app-dir ./supervisely_integration/serve/src --host 0.0.0.0 --port 8000 --ws websockets",
     "port": 8000,
