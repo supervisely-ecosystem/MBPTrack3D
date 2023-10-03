@@ -75,7 +75,7 @@ https://user-images.githubusercontent.com/119248312/8bf9a010-318d-41c6-9ba0-62e9
  
 # Demo
 
-Here is an example of tracking cuboids on multiple frames via MBPTrack:
+Here is an example of tracking `Cuboids` on multiple frames via MBPTrack:
 
 https://user-images.githubusercontent.com/119248312/8a250cd6-891a-46ad-9650-f8e237c9db9f.mp4
 
