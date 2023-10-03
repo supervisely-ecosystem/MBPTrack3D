@@ -49,19 +49,27 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 
 2. Or you can run the app from **Neural Networks** page -> **Point Clouds** -> **Detection & Tracking**.
 
-<img src="XXX"/>  
+<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/c220baeb-677a-4385-8dd9-f925bae02b41"/>  
 
-3. Run the app on an agent with `GPU`. For **Community Edition** - users have to run the app on their own GPU computer connected to the platform. Watch this [video tutorial](https://youtu.be/aO7Zc4kTrVg).
+3. Select one of the suggested checkpoints.
 
-<img src="XXX"/>
+4. Run the app on an agent with `GPU`. For **Community Edition** - users have to run the app on their own GPU computer connected to the platform. Watch this [video tutorial](https://youtu.be/aO7Zc4kTrVg).
 
-4. Use in `3D Point Cloud labeling tool`.
+<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/2b23cfe9-7cdb-44d0-952d-a6cb47e602f7"/>
 
-<img src="XXX"/>
+5. Use in `3D Point Cloud Episodes labeling tool`.
+
+<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/ec9e47c9-8ff8-466c-83d9-10295e1c939d"/>
 
 # How to use
 
-0. The first step is to familiarise yourself with the use of the [3D Labeling Toolbox](https://app.supervisely.com/ecosystem/annotation_tools/pointcloud-labeling-tool). More information and instructions can be found [HERE](https://supervise.ly/labeling-toolbox/3d-lidar-sensor-fusion?_ga=2.243685765.1054711181.1696213910-1002110389.1685351840).
+0. The first step is to familiarise yourself with the use of the [3D Episodes Labeling Toolbox](https://app.supervisely.com/ecosystem/annotation_tools/pointcloud-episodes-labeling-tool). More information and instructions can be found [HERE](https://supervise.ly/labeling-toolbox/3d-lidar-sensor-fusion?_ga=2.243685765.1054711181.1696213910-1002110389.1685351840).
+
+1. Create classes with Cuboid or Point Cloud shapes and then draw figures on the selected frame. There can be multiple figure per object (class) in a frame.
+
+2. Choose the start frame, in track settings select running MBPTrack app, direction, and number of frames.
+
+3. Click `Track` button. When a figure on the starting frame is selected, tracking begins for that figure. If no figures are selected, tracking starts for all of the figures on the frame. You can correct the position of the figures and re-track them
  
 # Demo
 
