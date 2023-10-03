@@ -70,9 +70,16 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 2. Choose the start frame, in track settings select running MBPTrack app, direction, and number of frames.
 
 3. Click `Track` button. When a figure on the starting frame is selected, tracking begins for that figure. If no figures are selected, tracking starts for all of the figures on the frame. You can correct the position of the figures and re-track them.
+
  
 # Demo
 
 Here is an example of tracking cuboids on multiple frames via MBPTrack:
+
+https://user-images.githubusercontent.com/119248312/8a250cd6-891a-46ad-9650-f8e237c9db9f.mp4
+
+https://user-images.githubusercontent.com/119248312/c7b605d7-d56a-4222-9f2e-1d326d9f001c.mp4
+
+
 
 
