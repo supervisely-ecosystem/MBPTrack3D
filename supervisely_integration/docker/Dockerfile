@@ -16,7 +16,7 @@ RUN pip3 install pointnet2_ops_lib/.
 WORKDIR /
 RUN pip3 install shapely==1.8.1
 
-RUN python3 -m pip install supervisely==6.72.87
+RUN python3 -m pip install supervisely==6.72.145
 
 RUN apt-get install ffmpeg libgeos-dev libsm6 libxext6 libexiv2-dev libxrender-dev libboost-all-dev -y
 RUN pip install opencv-python
