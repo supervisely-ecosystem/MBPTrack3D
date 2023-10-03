@@ -4,7 +4,7 @@
 
 # MBPTrack 3D Point Cloud Tracking (ICCV2023)
 
-state-of-the-art 3D single object tracking model (ICCV2023) integrated into Supervisely 3D Point Cloud Labeling tool
+State-of-the-art 3D single object tracking model (ICCV2023) integrated into Supervisely 3D Point Cloud Episodes labeling tool
 
 <p align="center">
   <a href="#Original-work">Original work</a> •
