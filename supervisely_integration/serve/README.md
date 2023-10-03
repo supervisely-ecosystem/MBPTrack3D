@@ -69,7 +69,7 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 
 2. Choose the start frame, in track settings select running MBPTrack app, direction, and number of frames.
 
-3. Click `Track` button. When a figure on the starting frame is selected, tracking begins for that figure. If no figures are selected, tracking starts for all of the figures on the frame. You can correct the position of the figures and re-track them
+3. Click `Track` button. When a figure on the starting frame is selected, tracking begins for that figure. If no figures are selected, tracking starts for all of the figures on the frame. You can correct the position of the figures and re-track them.
  
 # Demo
 
