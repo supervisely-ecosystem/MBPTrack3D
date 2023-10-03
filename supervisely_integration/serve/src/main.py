@@ -26,7 +26,7 @@ checkpoints_path = "/checkpoints/"
 checkpoint_name = os.environ.get("modal.state.modelName", "mbptrack_kitti_car.ckpt")
 
 
-class MBPTracker(sly.nn.inference.Cuboid3DTracking):
+class MBPTracker(sly.nn.inference.ObjectTracking3D):
     def preprocess_cuboid(self, geometry: Cuboid3d):
         assert geometry.geometry_name() == "cuboid_3d"
         position = geometry.position
