@@ -77,9 +77,9 @@ https://user-images.githubusercontent.com/119248312/8bf9a010-318d-41c6-9ba0-62e9
 
 Here is an example of tracking `Cuboids` on multiple frames via MBPTrack:
 
-https://user-images.githubusercontent.com/119248312/8a250cd6-891a-46ad-9650-f8e237c9db9f.mp4
+<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/96408081-6884-41d2-8848-568d51747ffd.gif"/>
 
-https://user-images.githubusercontent.com/119248312/c7b605d7-d56a-4222-9f2e-1d326d9f001c.mp4
+<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/e695cfb1-5291-4d37-b26a-b4f571f5edfb.gif"/>
 
 
 
