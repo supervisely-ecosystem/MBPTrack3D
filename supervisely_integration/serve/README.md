@@ -72,8 +72,6 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 3. Click `Track` button. When a figure on the starting frame is selected, tracking begins for that figure. If no figures are selected, tracking starts for all of the figures on the frame. You can correct the position of the figures and re-track them.
 
 https://user-images.githubusercontent.com/119248312/8bf9a010-318d-41c6-9ba0-62e91dbf9a3c.mp4
-
-https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/8bf9a010-318d-41c6-9ba0-62e91dbf9a3c
  
 # Demo
 
