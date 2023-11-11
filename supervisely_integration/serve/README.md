@@ -59,7 +59,7 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 
 5. Use in `3D Point Cloud Episodes labeling tool`.
 
-<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/ec9e47c9-8ff8-466c-83d9-10295e1c939d"/>
+<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/4b317ffe-8780-495e-aead-a7c52def294c"/>
 
 # How to use
 
@@ -71,15 +71,13 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 
 3. Click `Track` button. When a figure on the starting frame is selected, tracking begins for that figure. If no figures are selected, tracking starts for all of the figures on the frame. You can correct the position of the figures and re-track them.
 
-https://user-images.githubusercontent.com/119248312/272354554-8bf9a010-318d-41c6-9ba0-62e91dbf9a3c.mp4
+<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/43e010fe-9209-4b8a-94ff-e95ee4ab0882"/>
  
 # Demo
 
 Here is an example of tracking `Cuboids` on multiple frames via MBPTrack:
 
-<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/96408081-6884-41d2-8848-568d51747ffd"/>
-
-<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/e695cfb1-5291-4d37-b26a-b4f571f5edfb"/>
+<img src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/119248312/5fe2d25f-2d74-4923-a589-43f979a43b41"/>
 
 
 
