@@ -159,3 +159,5 @@ data_tracking_velodyne.zip
 data_tracking_label_2.zip
 data_tracking_calib.zip
 pointclouds/
+/supervisely
+/my_supervisely

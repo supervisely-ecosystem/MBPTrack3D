@@ -134,6 +134,7 @@ class MBPTracker(sly.nn.inference.ObjectTracking3D):
                     is_training=False,
                 )
                 self.previous_bbox = bbox
+                self.pcd_interface._notify(task="cuboid tracking")
                 return self.postprocess_cuboid(bbox)
             pcd, idx = resample_pcd(
                 pcd, self.cfg.dataset_cfg.frame_npts, return_idx=True, is_training=False
