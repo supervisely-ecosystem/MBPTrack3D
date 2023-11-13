@@ -65,7 +65,7 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 
 0. The first step is to familiarise yourself with the use of the [3D Episodes Labeling Toolbox](https://app.supervisely.com/ecosystem/annotation_tools/pointcloud-episodes-labeling-tool). More information and instructions can be found [HERE](https://supervise.ly/labeling-toolbox/3d-lidar-sensor-fusion?_ga=2.243685765.1054711181.1696213910-1002110389.1685351840).
 
-1. Create classes with `Cuboid` or `Point Cloud` shapes and then draw figures on the selected frame. There can be multiple figure per object (class) in a frame. Do not foprget to set correct cuboid direction as shown on the video below:
+1. Create classes with `Cuboid` or `Point Cloud` shapes and then draw figures on the selected frame. There can be multiple figure per object (class) in a frame. Do not forget to set correct cuboid direction as shown on the video below:
 
 https://user-images.githubusercontent.com/91027877/282587661-7e547a94-5a0e-4ee8-a127-e87ea6b0ec72.mp4
 
