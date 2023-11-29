@@ -161,3 +161,4 @@ data_tracking_calib.zip
 pointclouds/
 /supervisely
 /my_supervisely
+/cropped_pcds
