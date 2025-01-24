@@ -13,11 +13,11 @@ State-of-the-art 3D single object tracking model (ICCV2023) integrated into Supe
     <a href="#Demo">Demo</a>
 </p>
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervise.ly/apps/supervisely-ecosystem/mbptrack3d)
-[![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervisely.com/apps/supervisely-ecosystem/mbptrack3d)
+[![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervisely.com/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/mbptrack3d)
-[![views](https://app.supervise.ly/img/badges/views/supervisely-ecosystem/mbptrack3d/supervisely_integration/serve.png)](https://supervise.ly)
-[![runs](https://app.supervise.ly/img/badges/runs/supervisely-ecosystem/mbptrack3d/supervisely_integration/serve.png)](https://supervise.ly)
+[![views](https://app.supervisely.com/img/badges/views/supervisely-ecosystem/mbptrack3d/supervisely_integration/serve.png)](https://supervisely.com)
+[![runs](https://app.supervisely.com/img/badges/runs/supervisely-ecosystem/mbptrack3d/supervisely_integration/serve.png)](https://supervisely.com)
 
 </div>
 
@@ -63,7 +63,7 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 
 # How to use
 
-0. The first step is to familiarise yourself with the use of the [3D Episodes Labeling Toolbox](https://app.supervisely.com/ecosystem/annotation_tools/pointcloud-episodes-labeling-tool). More information and instructions can be found [HERE](https://supervise.ly/labeling-toolbox/3d-lidar-sensor-fusion?_ga=2.243685765.1054711181.1696213910-1002110389.1685351840).
+0. The first step is to familiarise yourself with the use of the [3D Episodes Labeling Toolbox](https://app.supervisely.com/ecosystem/annotation_tools/pointcloud-episodes-labeling-tool). More information and instructions can be found [HERE](https://supervisely.com/labeling-toolbox/3d-lidar-sensor-fusion?_ga=2.243685765.1054711181.1696213910-1002110389.1685351840).
 
 1. Create classes with `Cuboid` or `Point Cloud` shapes and then draw figures on the selected frame. There can be multiple figure per object (class) in a frame. Do not forget to set correct cuboid direction as shown on the video below:
 
