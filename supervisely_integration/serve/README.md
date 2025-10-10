@@ -13,7 +13,7 @@ State-of-the-art 3D single object tracking model (ICCV2023) integrated into Supe
     <a href="#Demo">Demo</a>
 </p>
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervisely.com/apps/supervisely-ecosystem/mbptrack3d)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](../../../../supervisely-ecosystem/mbptrack3d)
 [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervisely.com/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/mbptrack3d)
 [![views](https://app.supervisely.com/img/badges/views/supervisely-ecosystem/mbptrack3d/supervisely_integration/serve.png)](https://supervisely.com)
@@ -43,7 +43,7 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 
 0. This 3D single object tracking app is started by default in most cases by an instance administrator. If it isn't available in the video labeling tool, you can contact your Supervisely instance admin or run this app by yourself following the steps below.
 
-1. Go to Ecosystem page and find the app [MBPTrack 3D Point Cloud Tracking (ICCV2023)](https://ecosystem.supervisely.com/apps/mbptrack3d/supervisely_integration/serve).  
+1. Go to Ecosystem page and find the app [MBPTrack 3D Point Cloud Tracking (ICCV2023)](../../../../supervisely-ecosystem/mbptrack3d/supervisely_integration/serve).  
 
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/mbptrack3d/supervisely_integration/serve" src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/115161827/049135e8-2eac-43a3-a511-8da674fe551f" width="500px" style='padding-bottom: 20px'/> 
 
