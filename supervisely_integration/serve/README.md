@@ -43,7 +43,7 @@ Unlike previous existing approaches, which were based on the Siamese paradigm, M
 
 0. This 3D single object tracking app is started by default in most cases by an instance administrator. If it isn't available in the video labeling tool, you can contact your Supervisely instance admin or run this app by yourself following the steps below.
 
-1. Go to Ecosystem page and find the app [MBPTrack 3D Point Cloud Tracking (ICCV2023)](../../../../supervisely-ecosystem/mbptrack3d/supervisely_integration/serve).  
+1. Go to Ecosystem page and find the app [MBPTrack 3D Point Cloud Tracking (ICCV2023)](../../../../../../supervisely-ecosystem/mbptrack3d/supervisely_integration/serve).  
 
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/mbptrack3d/supervisely_integration/serve" src="https://github.com/supervisely-ecosystem/MBPTrack3D/assets/115161827/049135e8-2eac-43a3-a511-8da674fe551f" width="500px" style='padding-bottom: 20px'/> 
 
